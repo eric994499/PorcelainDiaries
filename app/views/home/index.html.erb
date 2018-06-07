@@ -1,1 +1,13 @@
-<%= render 'partials/show' %>
+
+
+
+
+<% @home.each do |post| %>
+      <h2 class="blog-post-title"><%= link_to post.title, post %></h2>
+        <p class="blog-post-meta" ><b>User: <%=  post.user.username %></b></p>        
+        <p><%= post.content %></p>
+        <% post.images.each do |image| %>
+   <%= image_tag (image.variant(resize: "100x100")) %><% end %>
+        <br>
+        <p></p>
+        <% end %>

@@ -1,0 +1,11 @@
+<%= simple_form_for([@post, @post.comments.build]) do |f| %>
+
+  <div class="field">
+    <%= f.label :reply %>
+    <%= f.text_area :response, class: "form-control" %>
+  </div>
+  <br>
+
+  <%= f.button :submit, 'Reply', class: 'button is-primary' %>
+
+ <% end %>

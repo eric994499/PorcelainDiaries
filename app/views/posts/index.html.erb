@@ -2,19 +2,35 @@
 <h3 class="pb-3 mb-4 font-italic border-bottom">From the Stalls</h3>
   <div class="blog-post">
     <% @posts.each do |post| %>
-      <h2 class="blog-post-title"><%= post.title %></h2>
-        <p class="blog-post-meta"><%= post.user.username %></p>
-        <br>
-        <p><%= post.content %></p>
+    
+      <h2 class="blog-post-title"><%= link_to post.title, post %></h2>
+        <p class="blog-post-meta" ><b>User: <%=  post.user.username %></b></p>        
+        <p><% if post.content != '' %><%= truncate(post.content, length: 120) %> <%= link_to 'click to see more', post %> <% end %></p>
         <% post.images.each do |image| %>
    <%= image_tag (image.variant(resize: "100x100")) %><% end %>
         <br>
-        <%= link_to 'Show', post %>  
-    <% end %>
+        <%= date_look(post.created_at) %>
+        <p></p>
+         <%= link_to post do %>
+          <span class="icon" style="color:grey;"><i class="fa fa-eye" ></i>  0 | </span> 
+         <% end %>
+         <%= link_to post do %>
+          <span class="icon" style="color:grey;" ><i class="fa fa-comment"></i> <%= post.comments.count %> | </span>
+         <% end %>
+         <%= link_to post do %>
+          <span class="icon" style="color:grey;"><i class="fa fa-heart"></i> 0</span>          
+         <% end %>
+         <br>
+         <br>
+         
+        <% end %>
     </div>
   </tbody>
 </table>
 
 <br>
-
+<% if user_signed_in? %>
 <%= link_to 'New Post', new_post_path %>
+<% else %>
+<%= link_to 'Sign Up to Post', new_user_registration_path %>
+<% end %>

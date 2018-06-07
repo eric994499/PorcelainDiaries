@@ -2,3 +2,12 @@ http://resizeimage.net/viewimg/ENfZUB8kMhUm2wOc/D1xme/toilet_png17713.png
 https://www.w3.org/html/logo/badge/html5-badge-h-css3-semantics.png
 https://media.discordapp.net/attachments/424461948479078400/453342147157032960/toilet_PNG17713.png
 background="https://cdn.discordapp.com/attachments/424461948479078400/453355009145569300/Webp.net-resizeimage.jpg"
+<% if @post.images.attached? %>
+<p>
+	<strong>Images:</strong>
+	<br>
+	<% @post.images.each do |image| %>
+	 <%= image_tag(image) %>
+	<% end %>
+</p>
+<% end %>

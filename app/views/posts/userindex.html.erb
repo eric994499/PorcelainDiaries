@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+<h3 class="pb-3 mb-4 font-italic border-bottom">From your Stall</h3>
+  <div class="blog-post">
+    <% @posts.each do |post| %>
+    <% if post.user == current_user %>
+      <h2 class="blog-post-title"><%= link_to post.title, post %></h2>
+        <%= date_look(post.created_at) %>
+        <p></p>
+        <%= link_to post do %>
+          <span class="icon" style="color:grey;"><i class="fa fa-eye" ></i>  0 | </span> 
+         <% end %>
+         <%= link_to post do %>
+          <span class="icon" style="color:grey;" ><i class="fa fa-comment"></i> <%= post.comments.count %> | </span>
+         <% end %>
+         <%= link_to post do %>
+          <span class="icon" style="color:grey;"><i class="fa fa-heart"></i> 0</span>          
+         <% end %>
+         <br>
+         <br>
+        <% end %>
+        <% end %>
+    </div>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>

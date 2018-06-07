@@ -1,20 +1,24 @@
 class PostsController < ApplicationController
-  before_action :set_post, :authenticate_user!, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :like, :unlike]
+  before_action :authenticate_user!, only: [:edit, :update, :destroy, :like, :unlike]
 
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all.with_attached_images
+    @posts = Post.all.with_attached_images.order(created_at: :asc).reverse_order.limit(10)
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
   end
-
+  # GET /posts/userindex
+  def userindex
+    @posts = Post.all.with_attached_images.order(created_at: :desc)
+  end
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = current_user.posts.build
   end
 
   # GET /posts/1/edit
@@ -24,8 +28,8 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
-    @post.user = current_user
+    @post = current_user.posts.build(post_params)
+    
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post}
@@ -60,6 +64,22 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def like
+    @post.liked_by current_user
+    respond_to do |format|
+      format.html {redirect_back fallback_location: root_path}
+      format.json {render layout:false}
+    end
+  end
+  def unlike
+    @post.unliked_by current_user
+    respond_to do |format|
+      format.html {redirect_back fallback_location: root_path}
+      format.json {render layout:false}
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
