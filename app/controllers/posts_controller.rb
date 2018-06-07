@@ -1,28 +1,37 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :like, :unlike]
   before_action :authenticate_user!, only: [:edit, :update, :destroy, :like, :unlike]
-
+  impressionist actions: [:show], unique: [:impressionable_type, :impressionable_id, :session_hash]
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all.with_attached_images.order(created_at: :asc).reverse_order.limit(10)
+    
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @page_title = ''
   end
   # GET /posts/userindex
   def userindex
     @posts = Post.all.with_attached_images.order(created_at: :desc)
+    @page_title = 'From your stall';
+  end
+  # this one will render the hottest post around
+  def hot
+        
   end
   # GET /posts/new
   def new
     @post = current_user.posts.build
+    @page_title = 'New Dump'
   end
 
   # GET /posts/1/edit
   def edit
+    @page_title = 'Dump Edit'
   end
 
   # POST /posts

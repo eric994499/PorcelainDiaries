@@ -1,5 +1,12 @@
 <div class="container">
- <strong><%= comment.user.username %></strong>
+ <% if comment.user.avatar.attached? %>
+            
+            <%= image_tag comment.user.avatar.variant(resize: "25x25")%>
+            <b><%=  comment.user.username %></b> 
+            <% else %>
+            
+             <b><%=  comment.user.username %></b> 
+             <% end %>
  <br>
  <%= comment.response %>
  <br>

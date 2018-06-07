@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   get 'about' => 'about#index'
   resources :posts do
     resources :comments
+    member do
+      put 'like', to: "posts#like"
+      put 'unlike', to: "posts#unlike"
+    end
   end
   get 'yourposts' => 'posts#userindex'
 

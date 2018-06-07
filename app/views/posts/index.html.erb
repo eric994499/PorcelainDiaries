@@ -1,10 +1,16 @@
-<p id="notice"><%= notice %></p>
-<h3 class="pb-3 mb-4 font-italic border-bottom">From the Stalls</h3>
+<h3 class="pb-3 mb-4 font-italic border-bottom"><strong>From the Stalls</strong></h3>
   <div class="blog-post">
     <% @posts.each do |post| %>
-    
+     <div class="jumbotron" style="background-color: white;">
       <h2 class="blog-post-title"><%= link_to post.title, post %></h2>
-        <p class="blog-post-meta" ><b>User: <%=  post.user.username %></b></p>        
+        <p class="blog-post-meta" ><% if post.user.avatar.attached? %>
+            
+            <%= image_tag post.user.avatar.variant(resize: "25x25")%>
+            <b><%=  post.user.username %></b> 
+            <% else %>
+            
+             <b><%=  post.user.username %></b> 
+             <% end %></p>      
         <p><% if post.content != '' %><%= truncate(post.content, length: 120) %> <%= link_to 'click to see more', post %> <% end %></p>
         <% post.images.each do |image| %>
    <%= image_tag (image.variant(resize: "100x100")) %><% end %>
@@ -12,17 +18,26 @@
         <%= date_look(post.created_at) %>
         <p></p>
          <%= link_to post do %>
-          <span class="icon" style="color:grey;"><i class="fa fa-eye" ></i>  0 | </span> 
+          <span class="icon" style="color:grey;"><i class="fa fa-eye" ></i>  <%= post.impressionist_count %> | </span> 
          <% end %>
          <%= link_to post do %>
           <span class="icon" style="color:grey;" ><i class="fa fa-comment"></i> <%= post.comments.count %> | </span>
          <% end %>
-         <%= link_to post do %>
-          <span class="icon" style="color:grey;"><i class="fa fa-heart"></i> 0</span>          
+         <% if user_signed_in? %>
+          <% if current_user.liked? post %>
+           <%= link_to unlike_post_path(post), method: :put, class: "unlike_post" do %>
+          <span class="icon" style="color:#7B5804;"><i class="fa fa-heart"></i> <%= post.get_likes.size %></span> 
+           <% end %> 
+          <% else %>
+          <%= link_to like_post_path(post), method: :put, class: "like_post" do %>
+          <span class="icon" style="color:grey;"><i class="fa fa-heart"></i> <%= post.get_likes.size %></span> 
+           <% end %> 
+          <% end %>                           
+         <% end %> 
+         <% if user_signed_in? == false%>  
+         <span class="icon" style="color:grey;"><i class="fa fa-heart"></i> <%= post.get_likes.size %></span> 
          <% end %>
-         <br>
-         <br>
-         
+         </div>
         <% end %>
     </div>
   </tbody>
@@ -30,7 +45,7 @@
 
 <br>
 <% if user_signed_in? %>
-<%= link_to 'New Post', new_post_path %>
+<%= link_to 'New Post', new_post_path, class: "btn btn-lg btn-primary btn-block", style: "background-color: #7B5804;"%>
 <% else %>
-<%= link_to 'Sign Up to Post', new_user_registration_path %>
+<%= link_to 'Sign Up', new_user_registration_path %> or <%= link_to 'Log In', new_user_session_path %> to post!
 <% end %>

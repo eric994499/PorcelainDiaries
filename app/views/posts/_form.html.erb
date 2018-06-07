@@ -27,8 +27,9 @@
     <%= form.label :images %>
     <%= form.file_field :images, multiple: true %>
   </div>
-  
-  <div class="actions">
-    <%= form.submit %>
+  <br>
+  <div class="field">
+    <%= form.submit 'Dump', class: "btn btn-primary", style: "background-color: #7B5804;" %>
   </div>
+  <br>
 <% end %>
