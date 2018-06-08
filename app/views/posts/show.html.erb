@@ -1,7 +1,4 @@
-<p>
-  <h3><strong>Title:</strong>
-  <%= @post.title %></h3>
-</p>
+
 <p>
   <strong>By: </strong><% if @post.user.avatar.attached? %>
             <b><%=  @post.user.username %></b> <br>
@@ -19,11 +16,13 @@
 <% end %>
 <% if @post.images.attached? %>
 <p>
-	<strong>Images:</strong>
+<button onclick="thatFunct()" class="btn btn-secondary nav-link fa fa-camera", style="background-color: #7B5804;""> Show Image(s)</button>
 	<br>
+  <div style="display: none;" id="myDIVV">
 	<% @post.images.each do |image| %>
-	 <%= image_tag(image) %>
+	 <%= image_tag(image)%>
 	<% end %>
+  </div>
 </p>
 <% end %>
 <br>

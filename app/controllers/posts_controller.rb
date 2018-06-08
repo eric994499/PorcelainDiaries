@@ -5,14 +5,19 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all.with_attached_images.order(created_at: :asc).reverse_order.limit(10)
-    
+    @posts = if params[:search] && params[:search] != ''
+      Post.where('content OR title LIKE ?', "%#{params[:search]}%").order(created_at: :desc)
+    else
+      Post.all.with_attached_images.order(created_at: :asc).reverse_order.limit(10)
+    end
+
+    @hot = Post.all.order(vote_toal: :desc).limit(1)
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
-    @page_title = ''
+    @page_title = @post.title
   end
   # GET /posts/userindex
   def userindex

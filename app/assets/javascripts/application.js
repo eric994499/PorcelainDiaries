@@ -17,3 +17,12 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require_tree .
+
+function thatFunct() {
+	var x = document.getElementById("myDIVV");
+	if (x.style.display  === "none") {
+		x.style.display = "block";
+	} else {
+		x.style.display = "none";
+	}
+}

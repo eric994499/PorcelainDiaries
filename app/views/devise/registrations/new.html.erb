@@ -16,7 +16,7 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email", class: "form-control", placeholder: "Email Address"%>
+    <%= f.email_field :email, autocomplete: "email", class: "form-control", placeholder: "Email Address"%> <small><button type="button" class="btn btn-secondary" style="background-color: #7B5804;" data-toggle="tooltip" data-placement="right" title="Because I want it!">Why?</button></small>
   </div>
 
   <div class="field">
@@ -33,7 +33,7 @@
   </div>
 <br>
   <div class="actions">
-    <%= f.submit "Sign up", class: "btn btn-lg btn-primary btn-block", style: "background-color: #7B5804;" %>
+    <%= f.submit "Sign up", class: "btn btn-lg btn-secondary btn-block", style: "background-color: #7B5804;" %>
   </div>
 <% end %>
 <br>

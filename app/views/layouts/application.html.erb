@@ -5,60 +5,63 @@
     <%= csrf_meta_tags %>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrin-to-fit=no">
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="icon" href="https://media.discordapp.net/attachments/424461948479078400/453342147157032960/toilet_PNG17713.png">
   </head>
 
   <body>
    
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <nav class="shadow navbar navbar-expand-lg navbar-expand-md navbar-dark bg-dark fixed-top">
       <a class="navbar-brand" href="/"><img src="https://media.discordapp.net/attachments/424461948479078400/453342147157032960/toilet_PNG17713.png" height="40"> Porcelain Diaries</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="nav navbar-nav mr-auto">
-          <li style="padding-right: 10px;">
-            <%= link_to 'Home', root_path, class: "btn btn-primary", style: "background-color: #7B5804;" %>
+        <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item" style="padding-right: 5px;">
+            <%= link_to ' Home', root_path, class: "btn btn-secondary nav-link fa fa-home", style: "background-color: #7B5804;" %>
           </li>
-          <li>
-            <%= link_to 'About', about_path, class: "btn btn-primary", style: "background-color: #7B5804;" %>
+          <li class="nav-item">
+            <%= link_to ' About', about_path, class: "btn btn-secondary nav-link fa fa-question", style: "background-color: #7B5804;" %>
           </li>
           </ul>
           <ul class="nav navbar-nav navbar-right" style="padding-right: 10px;">
           <% if user_signed_in? %>
-           <li style="padding-right: 10px; padding-top: 6px; color:#fff;">Logged in as <%= current_user.username %>. <% if current_user.avatar.attached? %>
+           <li class="nav-item" style="padding-right: 10px; padding-top: 6px; color:#fff;"><%= truncate(current_user.username, length: 10) %> <% if current_user.avatar.attached? %>
             
             <%= image_tag current_user.avatar.variant(resize: "30x30")%>
             
             
             <% end %></li>
-           <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-primary ", style: "background-color: #8b0000;" %>
+           <%= link_to " Log Out", destroy_user_session_path, method: :delete, class: "btn btn-secondary nav-link fa fa-sign-out", style: "background-color: #8b0000;" %>
            <% else %>
-            <li style="padding-right: 10px;">
-            <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-primary", style: "background-color: #7B5804;"%>
+            <li class="nav-item " style="padding-right: 10px;">
+            <%= link_to ' Sign Up', new_user_registration_path, class: "btn btn-secondary nav-link fa fa-user-plus", style: "background-color: #7B5804;"%>
           </li>        
-          <li>
-            <%= link_to 'Login', new_user_session_path, class: "btn btn-primary", style: "background-color: #7B5804;" %>
+          <li class="nav-item">
+            <%= link_to ' Login', new_user_session_path, class: "btn btn-secondary nav-link fa fa-sign-in", style: "background-color: #7B5804;" %>
           </li>
           <% end %>
-          </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+          </ul> 
+          <%= form_tag(posts_path, method: :get) do %>
+            <%= text_field_tag :search, params[:search] ,placeholder: "search", class: " mr-sm-2" %>
+            <%= submit_tag ' search',name: nil, class: "btn btn-outline-success  fa fa-search" %>         
+          <% end %>         
+        
       </div>
     </nav>
 
-    <header>
+    <header class="shadow">
      <div class="container">
-      <h1><b>Porcelain Diaries </b><small><%= @page_title ? @page_title : 'Welcome' %></small></h1>
+      <h1><b>PD </b>| <small class="text-muted"><%= @page_title ? @page_title : 'Welcome' %></small></h1>
      </div>
     </header>
 
      <div class="container">
       <div class="row">     
-       <div class="col-sm-8 jumbotron">
+       <div class="col-sm-8 shadow-lg jumbotron">
        <% if flash[:notice] %>
    <div class="notification is-primary global-notification">
    <p class="notice"><%= notice %></p>
@@ -72,7 +75,7 @@
          <%= yield %>
        </div>
       <div class="col-sm-4">
-       <div class="sidebar jumbotron">
+       <div class="sidebar jumbotron shadow-lg">
          <%= render 'partials/sidebar' %>
          <%= render 'posts/hot' %>
         </div>
@@ -86,4 +89,5 @@
        </div>
      </footer>
   </body>
+
 </html>

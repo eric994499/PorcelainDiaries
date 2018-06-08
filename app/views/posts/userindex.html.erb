@@ -3,7 +3,7 @@
   <div class="blog-post">
     <% @posts.each do |post| %>
     <% if post.user == current_user %>
-     <div class="jumbotron" style="background-color: white;">
+     <div class="shadow jumbotron" style="background-color: white;">
       <h2 class="blog-post-title"><%= link_to post.title, post %></h2>
         <%= date_look(post.created_at) %>
         <p></p>

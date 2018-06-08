@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_06_07_022159) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "username"
-    t.text "response"
+    t.blob "response", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "post_id"
@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(version: 2018_06_07_022159) do
   end
 
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
+    t.blob "title", limit: 255
+    t.binary "content", limit: 4294967295
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"

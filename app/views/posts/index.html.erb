@@ -1,7 +1,7 @@
 <h3 class="pb-3 mb-4 font-italic border-bottom"><strong>From the Stalls</strong></h3>
   <div class="blog-post">
     <% @posts.each do |post| %>
-     <div class="jumbotron" style="background-color: white;">
+     <div class="shadow jumbotron" style="background-color: white;">
       <h2 class="blog-post-title"><%= link_to post.title, post %></h2>
         <p class="blog-post-meta" ><% if post.user.avatar.attached? %>
             
@@ -12,11 +12,14 @@
              <b><%=  post.user.username %></b> 
              <% end %></p>      
         <p><% if post.content != '' %><%= truncate(post.content, length: 120) %> <%= link_to 'click to see more', post %> <% end %></p>
-        <% post.images.each do |image| %>
-   <%= image_tag (image.variant(resize: "100x100")) %><% end %>
-        <br>
+         <br>
         <%= date_look(post.created_at) %>
         <p></p>
+        <% if post.images.attached? %>
+        <%= link_to post do %>
+         <span class="icon" style="color:grey;"><i class="fa fa-camera"></i> | </span>
+         <% end %>
+         <% end %>
          <%= link_to post do %>
           <span class="icon" style="color:grey;"><i class="fa fa-eye" ></i>  <%= post.impressionist_count %> | </span> 
          <% end %>
@@ -45,7 +48,7 @@
 
 <br>
 <% if user_signed_in? %>
-<%= link_to 'New Post', new_post_path, class: "btn btn-lg btn-primary btn-block", style: "background-color: #7B5804;"%>
+<%= link_to 'New Post', new_post_path, class: "btn btn-lg btn-secondary btn-block", style: "background-color: #7B5804;"%>
 <% else %>
 <%= link_to 'Sign Up', new_user_registration_path %> or <%= link_to 'Log In', new_user_session_path %> to post!
 <% end %>

@@ -5,5 +5,5 @@ class Post < ApplicationRecord
     has_many :comments, dependent: :destroy
 
     is_impressionable
-    acts_as_votable
+    acts_as_votable :vote_counter => true
 end

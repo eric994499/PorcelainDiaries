@@ -40,6 +40,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'acts_as_votable', '~> 0.11.1'
 gem 'impressionist'
 gem 'simple_form'
+gem 'gemoji'
 
 
 
