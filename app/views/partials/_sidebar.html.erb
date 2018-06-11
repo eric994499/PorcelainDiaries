@@ -1,4 +1,4 @@
-
+<div class="shadow-lg jumbotron sidebarcolor">
 <% if params[:controller] == 'about' %>
  <div class="well">
   <h3>Location Info</h3>
@@ -21,9 +21,9 @@
           <ul><p><b> Profile:</b>  <%= current_user.username %></p>
           <br>
            <%= link_to ' Edit Profile', edit_user_registration_path, class: "btn btn-secondary fa fa-pencil", style: "background-color: #7a5703;" %><p></p>
-           <%= link_to ' Create Post', new_post_path, class: "btn btn-secondary fa fa-pencil", style: "background-color: #664905;"
+           <%= link_to ' Create Dump', new_post_path, class: "btn btn-secondary fa fa-pencil", style: "background-color: #664905;"
             %><p></p>
-           <%= link_to ' Your Posts', yourposts_path, class: "btn btn-secondary fa", style: "background-color: #563e05;" %><p></p>
+           <%= link_to ' Your Dumps', yourposts_path, class: "btn btn-secondary fa", style: "background-color: #563e05;" %><p></p>
            <%= link_to " Log Out", destroy_user_session_path, method: :delete, class: "btn btn-secondary fa fa-sign-out ", style: "background-color: #8b0000;" %></ul>
   <% else %>
   <h3 align="center"><%= link_to ' Sign Up', new_user_registration_path, class: "btn btn-secondary fa fa-user-plus", style: "background-color: #7B5804;" %></h3>
@@ -33,3 +33,4 @@
         <p><b> Sign in or Login to make posts of your own!!</b></p>
         <% end %>
 <% end %>
+</div>

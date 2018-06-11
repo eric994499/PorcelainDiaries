@@ -1,4 +1,4 @@
-
+<div style="background-image: url(https://cdn.discordapp.com/attachments/424461948479078400/455462404072013834/opened.png); background-repeat: no-repeat; background-position: center;"  >
 <p>
   <strong>By: </strong><% if @post.user.avatar.attached? %>
             <b><%=  @post.user.username %></b> <br>
@@ -20,7 +20,7 @@
 	<br>
   <div style="display: none;" id="myDIVV">
 	<% @post.images.each do |image| %>
-	 <%= image_tag(image)%>
+   <%= image_tag(image.variant(resize: "500x500"))%>   
 	<% end %>
   </div>
 </p>
@@ -54,6 +54,7 @@
 <% end %>
 <%= link_to 'Back', posts_path %>
 <div><br></div>
+
 <section class="comments">
   <h4><%= pluralize(@post.comments.count, 'Comment') %></h4>
   <%= render @post.comments %>
@@ -70,6 +71,5 @@
    </div>
    <% end %>
 
-
-<br>
+</div>
 

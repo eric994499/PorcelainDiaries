@@ -1,8 +1,9 @@
 <h3 class="pb-3 mb-4 font-italic border-bottom"><strong>From the Stalls</strong></h3>
   <div class="blog-post">
     <% @posts.each do |post| %>
-     <div class="shadow jumbotron" style="background-color: white;">
-      <h2 class="blog-post-title"><%= link_to post.title, post %></h2>
+     <div class="jumbotron" style="background-color: transparent;background-image: url(https://cdn.discordapp.com/attachments/424461948479078400/455461611688427521/Closed.png); background-repeat: no-repeat; background-position: center; background-size: 750px 380px;">
+     <div align="center" style="padding-left: 20px;">       
+      <h2 class="blog-post-title"><%= link_to truncate(post.title, length: 22), post %></h2>
         <p class="blog-post-meta" ><% if post.user.avatar.attached? %>
             
             <%= image_tag post.user.avatar.variant(resize: "25x25")%>
@@ -39,7 +40,8 @@
          <% end %> 
          <% if user_signed_in? == false%>  
          <span class="icon" style="color:grey;"><i class="fa fa-heart"></i> <%= post.get_likes.size %></span> 
-         <% end %>
+         <% end %>      
+         </div>
          </div>
         <% end %>
     </div>
@@ -48,7 +50,7 @@
 
 <br>
 <% if user_signed_in? %>
-<%= link_to 'New Post', new_post_path, class: "btn btn-lg btn-secondary btn-block", style: "background-color: #7B5804;"%>
+<%= link_to 'New Dump', new_post_path, class: "btn btn-lg btn-secondary btn-block", style: "background-color: #7B5804;"%>
 <% else %>
 <%= link_to 'Sign Up', new_user_registration_path %> or <%= link_to 'Log In', new_user_session_path %> to post!
 <% end %>

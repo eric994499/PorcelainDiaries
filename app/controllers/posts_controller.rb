@@ -11,25 +11,24 @@ class PostsController < ApplicationController
       Post.all.with_attached_images.order(created_at: :asc).reverse_order.limit(10)
     end
 
-    @hot = Post.all.order(vote_toal: :desc).limit(1)
+    @hot = Post.all.with_attached_images.order(cached_votes_score: :desc).limit(1)
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
     @page_title = @post.title
+    @hot = Post.all.with_attached_images.order(cached_votes_score: :desc).limit(1)
   end
   # GET /posts/userindex
   def userindex
+    @hot = Post.all.with_attached_images.order(cached_votes_score: :desc).limit(1)
     @posts = Post.all.with_attached_images.order(created_at: :desc)
     @page_title = 'From your stall';
   end
-  # this one will render the hottest post around
-  def hot
-        
-  end
   # GET /posts/new
   def new
+    @hot = Post.all.with_attached_images.order(cached_votes_score: :desc).limit(1)
     @post = current_user.posts.build
     @page_title = 'New Dump'
   end

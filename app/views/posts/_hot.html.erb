@@ -1,0 +1,54 @@
+<% if params[:controller] ==+ 'posts'%>
+<div class=" shadow container sidebarcolor">
+<h3 class="fa-large"><i class="fa fa-fire"></i> Hottest Dump</h3>
+</div>
+<br>
+<div class=" shadow-lg container sidebarcolor">
+<% @hot.each do |post| %>
+<div class="hottest">
+<div align="center">
+<br>
+ <h2><%= link_to truncate(post.title, length: 16), post, class: "textcolortest" %></h2>
+
+        <h3 class="blog-post-meta" ><% if post.user.avatar.attached? %>
+            
+            <%= image_tag post.user.avatar.variant(resize: "25x25")%>
+            <b><%=  post.user.username %></b> 
+            <% else %>
+
+            
+             <b><%=  post.user.username %></b> 
+             <% end %></h3>      
+        <br>
+         <p></p>
+        <%= date_look(post.created_at) %><br>
+        <% if post.images.attached? %>
+        <%= link_to post do %>
+         <span class="icon" style="color:grey;"><i class="fa fa-camera"></i> | </span>
+         <% end %>
+         <% end %>
+         <%= link_to post do %>
+          <span class="icon" style="color:grey;"><i class="fa fa-eye" ></i>  <%= post.impressionist_count %> | </span> 
+         <% end %>
+         <%= link_to post do %>
+          <span class="icon" style="color:grey;" ><i class="fa fa-comment"></i> <%= post.comments.count %> | </span>
+         <% end %>
+         <% if user_signed_in? %>
+          <% if current_user.liked? post %>
+           <%= link_to unlike_post_path(post), method: :put, class: "unlike_post" do %>
+          <span class="icon" style="color:#7B5804;"><i class="fa fa-heart"></i> <%= post.get_likes.size %></span> 
+           <% end %> 
+          <% else %>
+          <%= link_to like_post_path(post), method: :put, class: "like_post" do %>
+          <span class="icon" style="color:grey;"><i class="fa fa-heart"></i> <%= post.get_likes.size %></span> 
+           <% end %> 
+          <% end %>                           
+         <% end %> 
+         <% if user_signed_in? == false%>  
+         <span class="icon" style="color:grey;"><i class="fa fa-heart"></i> <%= post.get_likes.size %></span> 
+         <% end %>
+         </div>
+         </div>  
+<% end %>
+</div>
+<% end %>    
